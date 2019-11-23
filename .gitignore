@@ -1,0 +1,5 @@
+# this is the '.gitignore' file and helps you to do not publish
+# stupid stuff inside your amazing git project
+
+# my database configuration file and other stuff
+/load.php
