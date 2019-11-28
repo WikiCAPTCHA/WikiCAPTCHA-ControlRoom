@@ -22,7 +22,7 @@ require '../load.php';
 $page = new PageHome();
 
 // I want this stylesheet
-enqueue_js( 'my-style');
+enqueue_css( 'my-style' );
 
 // print site header
 $page->printHeader();
