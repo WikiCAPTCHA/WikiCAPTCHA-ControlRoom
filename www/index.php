@@ -19,9 +19,7 @@
 require '../load.php';
 
 // this is the homepage (the business logic of this page it's in this class)
-$page = new PageHome( [
-	'title' => __( "Welcome!" ),
-] );
+$page = new PageHome();
 
 // I want this stylesheet
 enqueue_js( 'my-style');

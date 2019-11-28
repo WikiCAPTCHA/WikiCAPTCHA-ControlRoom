@@ -21,16 +21,14 @@
 class PageHome extends Page {
 
 	/**
-	 * User requested by ID
-	 */
-	public $requestedUser = false;
-
-	/**
 	 * Do something at startup
 	 *
 	 * @override
 	 */
 	protected function prepare() {
+
+		// must be logged-in
+		require_permission( 'backend' );
 
 		// read the ID from the query string or zero
 		$id = $_GET['id'] ?? 0;
@@ -50,12 +48,21 @@ class PageHome extends Page {
 	}
 
 	/**
-	 * Get the requested User (if any!)
+	 * Get a generator of my apps
 	 *
-	 * @return User|null
+	 * @generator
 	 */
-	public function getRequestedUser() {
-		return $this->requestedUser;
+	public function myAppsGenerator() {
+
+		return ( new QueryAppUser() )
+			->select( [
+				'app.app_ID',
+				'app_name',
+			] )
+			->whereUserIsMe()
+			->joinApp()
+			->queryGenerator();
+
 	}
 
 }
