@@ -16,16 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class that can wrap an User retrieved from the database
+ * Methods for a User class
  */
-class User extends Sessionuser {
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+trait UserTrait {
 
 	/**
 	 * Get the User name
@@ -87,4 +80,28 @@ class User extends Sessionuser {
 		return false;
 	}
 
+	/**
+	 * Normalize an User class
+	 *
+	 */
+	protected function normalizeUser() {
+		$this->integers( 'user_ID' );
+		$this->booleans( 'user_active' );
+	}
+
+}
+
+/**
+ * Class that can wrap an User retrieved from the database
+ */
+class User extends Sessionuser {
+
+	use UserTrait;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->normalizeUser();
+	}
 }
