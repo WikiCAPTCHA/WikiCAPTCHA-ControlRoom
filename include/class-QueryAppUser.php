@@ -18,10 +18,24 @@
 /**
  * Execute a Query against the 'appuser' table
  */
-class QueryAppUser {
+class QueryAppUser extends Query {
 
-	use AppTrait;
-	use UserTrait;
+	use QueryAppTrait;
+	use QueryUserTrait;
+
+	/**
+	 * Univoque User ID column name
+	 *
+	 * @var string
+	 */
+	protected $USER_ID = 'appuser.user_ID';
+
+	/**
+	 * Univoque App ID column name
+	 *
+	 * @var string
+	 */
+	protected $APP_ID = 'app.app_ID';
 
 	/**
 	 * Constructor
