@@ -53,14 +53,14 @@ inherit_permissions( 'admin', 'analist', [
 // autoload classes and traits from the 'include' directory
 spl_autoload_register( function( $missing_class_name ) {
 
-	// the class should be there
-	$path = ABSPATH . "/include/class-{$missing_class_name}.php";
-
 	// if the class name ends with 'Trait' just autoload it's class
 	$suffix = substr( $missing_class_name, -5 );
 	if( $suffix === 'Trait' ) {
 		$missing_class_name = substr( $missing_class_name, 0, -5 );
 	}
+
+	// the class should be there
+	$path = ABSPATH . "/include/class-{$missing_class_name}.php";
 
 	// eventually load if valid
 	if( file_exists( $path ) ) {
