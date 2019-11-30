@@ -35,6 +35,7 @@ register_js( 'my-script', 'static/my-script.js' );
 // register an 'user' role with some permissions
 register_permissions('user', [
 	'backend',
+	'add-app',
 ] );
 
 // register an 'analist' role that it's somehow more than an 'user'

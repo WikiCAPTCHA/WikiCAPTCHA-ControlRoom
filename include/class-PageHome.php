@@ -21,6 +21,13 @@
 class PageHome extends Page {
 
 	/**
+	 * Generator of my App(s)
+	 *
+	 * @generator
+	 */
+	private $apps;
+
+	/**
 	 * Do something at startup
 	 *
 	 * @override
@@ -30,21 +37,29 @@ class PageHome extends Page {
 		// must be logged-in
 		require_permission( 'backend' );
 
-		// read the ID from the query string or zero
-		$id = $_GET['id'] ?? 0;
+		// set page title
+		$this->setTitle( __( "Panel" ) );
 
-		// make sure that it's an integer
-		$id = (int) $id;
+		// query my App(s)
+		$this->apps =
+			( new QueryAppUser() )
+				->select( [
+					'app.app_ID',
+					'app_name',
+				] )
+				->whereUserIsMe()
+				->joinApp()
+				->queryGenerator();
 
-		// if it's non-zero
-		if( $id ) {
+	}
 
-			// query the User with that ID (or get NULL)
-			$this->requestedUser =
-				( new QueryUser() )
-					->whereUserID( $id )
-					->queryRow();
-		}
+	/**
+	 * Check if I have apps
+	 *
+	 * @return boolean
+	 */
+	public function areThereMyApps() {
+		return $this->apps->valid();
 	}
 
 	/**
@@ -52,17 +67,8 @@ class PageHome extends Page {
 	 *
 	 * @generator
 	 */
-	public function myAppsGenerator() {
-
-		return ( new QueryAppUser() )
-			->select( [
-				'app.app_ID',
-				'app_name',
-			] )
-			->whereUserIsMe()
-			->joinApp()
-			->queryGenerator();
-
+	public function getMyApps() {
+		return $this->apps;
 	}
 
 }

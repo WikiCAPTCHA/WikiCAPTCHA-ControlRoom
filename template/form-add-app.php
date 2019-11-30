@@ -15,30 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-// load everything
-require '../load.php';
-
-// this is the homepage (the business logic of this page it's in this class)
-$page = new PageHome();
-
-// I want this stylesheet
-enqueue_css( 'my-style' );
-
-// print site header
-$page->printHeader();
 ?>
 
-	<h2><?= __( "Your Apps" ) ?></h2>
-	<?php if( $page->areThereMyApps() ): ?>
-		<?php foreach( $page->getMyApps() as $app ): ?>
-			<?= esc_html( $app->getAppName() ) ?>
-		<?php endforeach ?>
-	<?php else: ?>
-		<p><?= __( "None" ) ?></p>
-	<?php endif ?>
+<?php if( has_permission( 'add-app' ) ): ?>
+	<form method="post" action="<?= ROOT ?>/app.php">
 
-	<h2><?= __( "Create App" ) ?></h2>
-	<?php template( 'form-add-app' ) ?>
+		<?php form_action( 'save-app' ) ?>
 
-<?php
-$page->printFooter();
+		<p>
+			<label for="app-name"><?= __( "App Name" ) ?></label><br />
+			<input type="text" name="name" id="app-name" />
+		</p>
+
+		<p>
+			<button type="submit"><?= __( "Create" ) ?></button>
+		</p>
+	</form>
+<?php endif ?>
