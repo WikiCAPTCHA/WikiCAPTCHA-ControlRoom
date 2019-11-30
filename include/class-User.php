@@ -24,7 +24,6 @@ class User extends Sessionuser {
 	 * Constructor
 	 */
 	public function __construct() {
-
 		parent::__construct();
 	}
 
@@ -44,6 +43,33 @@ class User extends Sessionuser {
 	 */
 	public function getUserID() {
 		return $this->getSessionuserID();
+	}
+
+	/**
+	 * Get the User UID
+	 *
+	 * @return string
+	 */
+	public function getUserUID() {
+		return $this->getSessionuserUID();
+	}
+
+	/**
+	 * Get the User role
+	 *
+	 * @return string
+	 */
+	public function getUserRole() {
+		return $this->getSessionuserRole();
+	}
+
+	/**
+	 * Check if the User is active
+	 *
+	 * @return boolean
+	 */
+	public function isUserActive() {
+		return $this->isSessionuserActive();
 	}
 
 	/**

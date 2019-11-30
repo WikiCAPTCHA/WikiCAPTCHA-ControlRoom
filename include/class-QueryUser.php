@@ -21,6 +21,15 @@
 trait QueryUserTrait {
 
 	/**
+	 * Where the User is...
+	 *
+	 * @return self
+	 */
+	public function whereUser( $user ) {
+		return $this->whereUserID( $user->getUserID() );
+	}
+
+	/**
 	 * Where the User ID is...
 	 *
 	 * @param  int $id User ID
@@ -28,6 +37,16 @@ trait QueryUserTrait {
 	 */
 	public function whereUserID( $id ) {
 		return $this->whereInt( $this->USER_ID, $id );
+	}
+
+	/**
+	 * Where the User UID is...
+	 *
+	 * @param  string $uid User UID
+	 * @return self
+	 */
+	public function whereUserUID( $uid ) {
+		return $this->whereStr( 'user_uid', $uid );
 	}
 
 	/**
