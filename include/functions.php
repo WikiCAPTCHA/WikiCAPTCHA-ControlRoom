@@ -38,16 +38,38 @@ function template( $name, $args = [] ) {
  */
 function require_permission( $permission ) {
 	if( !has_permission( $permission ) ) {
-
-		if( is_logged() ) {
-			http_response_code( 403 );
-			die( "ARE YOU A PIRATE?" );
-		}
-
-		$url = http_build_get_query( 'login.php', [
-			'redirect' => $_SERVER['REQUEST_URI'],
-		] );
-
-		http_redirect( $url, 303 ); // HTTP 303 redirect: See Other
+		require_more_privileges();
 	}
+}
+
+/**
+ * Require more privileges
+ *
+ * If you are logged-in, the page dies.
+ * If you are not-logged-in, you will be redirected.
+ */
+function require_more_privileges() {
+
+	if( is_logged() ) {
+		http_response_code( 403 );
+		die( "ARE YOU A PIRATE?" );
+	}
+
+	$url = http_build_get_query( 'login.php', [
+		'redirect' => $_SERVER['REQUEST_URI'],
+	] );
+
+	// HTTP 303 redirect: See Other
+	http_redirect( $url, 303 );
+}
+
+/**
+ * Spawn a page not found page
+ */
+function page_not_found() {
+	$page = new PageNotFound();
+	$page->printHeader();
+	$page->printContent();
+	$page->printFooter();
+	exit;
 }

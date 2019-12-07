@@ -15,52 +15,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Methods of an App class
- */
-trait AppTrait {
-
-	/**
-	 * Get the App ID
-	 *
-	 * @return int
-	 */
-	public function getAppID() {
-		return $this->get( 'app_ID' );
-	}
-
-	/**
-	 * Get the App name
-	 *
-	 * @return string
-	 */
-	public function getAppName() {
-		return $this->get( 'app_name' );
-	}
-
-	/**
-	 * Normalize an App after being retrieved from database
-	 */
-	protected function normalizeApp() {
-		$this->integers( 'app_ID' );
-	}
-}
-
-/**
- * Class that can wrap an App retrieved from the database
+/*
+ * This is the template to change an App
  *
- * An App rappresents an instance of a WikiCAPTCHA application
- * assigned to a website.
+ * Available variables:
+ *
+ *  $app (App|null)
  */
-class App extends Queried {
+?>
 
-	use AppTrait;
+<?php if( has_permission( 'add-app' ) ): ?>
+	<form method="post" action="<?= ROOT ?>/app.php">
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->normalizeApp();
-	}
+		<?php form_action( 'save-app' ) ?>
 
-}
+		<p>
+			<label for="app-name"><?= __( "App Name" ) ?></label><br />
+			<input type="text" name="name" id="app-name"<?php
+				if( $app ) {
+					echo value( $app->getAppName() );
+				}
+			?> />
+		</p>
+
+		<?php if( $app ): ?>
+			<input type="hidden" name="id"<?= value( $app->getAppID() ) ?> />
+		<?php endif ?>
+
+		<p>
+			<button type="submit"><?=
+				$app ? __( "Save"   )
+				     : __( "Create" )
+			?></button>
+		</p>
+	</form>
+<?php endif ?>

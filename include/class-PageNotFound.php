@@ -16,51 +16,26 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Methods of an App class
+ * Page not found
  */
-trait AppTrait {
+class PageNotFound extends Page {
 
 	/**
-	 * Get the App ID
-	 *
-	 * @return int
+	 * @override
 	 */
-	public function getAppID() {
-		return $this->get( 'app_ID' );
+	public function prepare() {
+
+		http_response_code( 404 );
+
+		$this->setTitle( __( "Not Found" ) );
+
 	}
 
 	/**
-	 * Get the App name
-	 *
-	 * @return string
+	 * Print content
 	 */
-	public function getAppName() {
-		return $this->get( 'app_name' );
-	}
-
-	/**
-	 * Normalize an App after being retrieved from database
-	 */
-	protected function normalizeApp() {
-		$this->integers( 'app_ID' );
-	}
-}
-
-/**
- * Class that can wrap an App retrieved from the database
- *
- * An App rappresents an instance of a WikiCAPTCHA application
- * assigned to a website.
- */
-class App extends Queried {
-
-	use AppTrait;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->normalizeApp();
+	public function printContent() {
+		template( 'not-found' );
 	}
 
 }

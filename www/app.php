@@ -19,37 +19,21 @@
 require '../load.php';
 
 // this is the homepage (the business logic of this page it's in this class)
-$page = new PageHome();
-
-// I want this stylesheet
-enqueue_css( 'my-style' );
+$page = new PageApp();
 
 // print site header
 $page->printHeader();
 ?>
 
-	<h2><?= __( "Your Apps" ) ?></h2>
-	<?php if( $page->areThereMyApps() ): ?>
-		<ul>
-		<?php foreach( $page->getMyApps() as $app ): ?>
-				<li><?= HTML::a(
-					// href
-					http_build_get_query( 'app.php', [
-						'id	' => $app->getAppID(),
-					] ),
-
-					// link text
-					esc_html( $app->getAppName() )
-				) ?></li>
-			<?php endforeach ?>
-		</ul>
-	<?php else: ?>
-		<p><em><?= __( "None yet." ) ?></em></p>
+	<!-- login failed warning -->
+	<?php if( $page->isAppFormSubmitted() ): ?>
+		<div class="card-panel">
+			<p><?= __( "Saved" ) ?></p>
+		</div>
 	<?php endif ?>
 
-	<h2><?= __( "Create App" ) ?></h2>
 	<?php template( 'form-app', [
-		'app' => null,
+		'app' => $page->getApp(),
 	] ) ?>
 
 <?php

@@ -38,6 +38,23 @@ class Page {
 
 		$this->args = $args;
 
+		// is there a known page UID?
+		if( isset( $args['uid'] ) ) {
+
+			// check if we know this page
+			$page = menu_entry( $args['uid'] );
+			if( $page ) {
+
+				// check if I'm allowed to see this page
+				if( !$page->isVisible() ) {
+					require_more_privileges();
+				}
+
+				// set a default page title
+				$this->setTitle( $page->name );
+			}
+		}
+
 		$this->prepare();
 	}
 

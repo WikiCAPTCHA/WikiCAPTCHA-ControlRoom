@@ -21,6 +21,26 @@
 trait QueryAppTrait {
 
 	/**
+	 * Where the App is...
+	 *
+	 * @param  object $app
+	 * @return self
+	 */
+	public function whereApp( $app ) {
+		return $this->whereAppID( $app->getAppID() );
+	}
+
+	/**
+	 * Where the App ID is...
+	 *
+	 * @param  int $id
+	 * @return self
+	 */
+	public function whereAppID( $id ) {
+		return $this->whereInt( $this->APP_ID, $id );
+	}
+
+	/**
 	 * Join a table with the App table
 	 *
 	 * @return
@@ -37,6 +57,13 @@ trait QueryAppTrait {
 class QueryApp extends Query {
 
 	use QueryAppTrait;
+
+	/**
+	 * Univoque App ID column name
+	 *
+	 * @var string
+	 */
+	protected $APP_ID = 'app.app_ID';
 
 	/**
 	 * Constructor

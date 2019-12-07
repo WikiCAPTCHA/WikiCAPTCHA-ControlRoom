@@ -35,7 +35,7 @@ class QueryAppUser extends Query {
 	 *
 	 * @var string
 	 */
-	protected $APP_ID = 'app.app_ID';
+	protected $APP_ID = 'appuser.app_ID';
 
 	/**
 	 * Constructor
@@ -43,7 +43,7 @@ class QueryAppUser extends Query {
 	 * @param object $db         Database connection
 	 * @param string $class_name Default class name for the results
 	 */
-	public function __construct( $db = null, $class_name = 'Queried' ) {
+	public function __construct( $db = null, $class_name = 'App' ) {
 
 		// set the database connection and the default class name for the results
 		parent::__construct( $db, $class_name );

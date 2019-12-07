@@ -15,20 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+/*
+ * This template for the page not found
+ */
+
 ?>
-
-<?php if( has_permission( 'add-app' ) ): ?>
-	<form method="post" action="<?= ROOT ?>/app.php">
-
-		<?php form_action( 'save-app' ) ?>
-
-		<p>
-			<label for="app-name"><?= __( "App Name" ) ?></label><br />
-			<input type="text" name="name" id="app-name" />
-		</p>
-
-		<p>
-			<button type="submit"><?= __( "Create" ) ?></button>
-		</p>
-	</form>
-<?php endif ?>
+<p><?= __( "This page does not exist or it's not visible to you." ) ?></p>
