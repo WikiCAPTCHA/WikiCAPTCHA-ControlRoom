@@ -35,7 +35,7 @@ $page->printHeader();
 				<li><?= HTML::a(
 					// href
 					http_build_get_query( 'app.php', [
-						'id	' => $app->getAppID(),
+						'id' => $app->getAppID(),
 					] ),
 
 					// link text
